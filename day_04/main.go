@@ -13,20 +13,19 @@ type interval struct {
 	start, end int
 }
 
-func fullyIntersect(a int, b int, c int, d int) bool {
-	return a <= c && d <= b || c <= a && b <= d
+func fullOverlap(interval1 interval, interval2 interval) bool {
+	return interval1.start <= interval2.start && interval2.end <= interval1.end ||
+		interval2.start <= interval1.start && interval1.end <= interval2.end
 }
 
-func intersect(a int, b int, c int, d int) bool {
-	return a <= c && c <= b || c <= a && a <= d
+func intersect(interval1 interval, interval2 interval) bool {
+	return interval1.start <= interval2.end && interval2.start <= interval1.end
 }
 
 func solvePart1(input [][]interval) int {
 	total := 0
 	for _, intervals := range input {
-		firstInterval := intervals[0]
-		secondInterval := intervals[1]
-		if fullyIntersect(firstInterval.start, firstInterval.end, secondInterval.start, secondInterval.end) {
+		if fullOverlap(intervals[0], intervals[1]) {
 			total += 1
 		}
 	}
@@ -36,9 +35,7 @@ func solvePart1(input [][]interval) int {
 func solvePart2(input [][]interval) int {
 	total := 0
 	for _, intervals := range input {
-		firstInterval := intervals[0]
-		secondInterval := intervals[1]
-		if intersect(firstInterval.start, firstInterval.end, secondInterval.start, secondInterval.end) {
+		if intersect(intervals[0], intervals[1]) {
 			total += 1
 		}
 	}
