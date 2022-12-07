@@ -37,7 +37,7 @@ func createStacksFromInput(input string) []stack.Stack[rune] {
 	lines := strings.Split(input, "\n")
 
 	for i := 0; i < (len(lines[0])+1)/4; i++ {
-		stacks = append(stacks, stack.New([]rune{}))
+		stacks = append(stacks, stack.New[rune]())
 	}
 
 	for i := len(lines)-1; i >= 0; i-- {

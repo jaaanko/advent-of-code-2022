@@ -33,9 +33,9 @@ func (s *Stack[T]) Len() int {
 	return len(*s)
 }
 
-func New[T any](slice []T) Stack[T] {
+func New[T any](elements ...T) Stack[T] {
 	stack := Stack[T]{}
-	for _,element := range slice {
+	for _,element := range elements {
 		stack.Push(element)
 	}
 	return stack
