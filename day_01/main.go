@@ -8,7 +8,7 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/jaaanko/advent-of-code-2022/math"
+	"github.com/jaaanko/advent-of-code-2022/imath"
 )
 
 func solvePart1(elves [][]int) int {
@@ -18,7 +18,7 @@ func solvePart1(elves [][]int) int {
 		for _, value := range calories {
 			curr += value
 		}
-		maxCalories = math.MaxInt(maxCalories, curr)
+		maxCalories = imath.MaxInt(maxCalories, curr)
 	}
 
 	return maxCalories

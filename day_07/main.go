@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	m "github.com/jaaanko/advent-of-code-2022/math"
+	"github.com/jaaanko/advent-of-code-2022/imath"
 )
 
 type file struct {
@@ -100,7 +100,7 @@ func solvePart2(root *file) int {
 
 	dfs = func(root *file) {
 		if root.isDirectory && root.size >= target {
-			minSize = m.MinInt(minSize, root.size)
+			minSize = imath.MinInt(minSize, root.size)
 		}
 
 		for _, child := range root.children {

@@ -1,4 +1,4 @@
-package math
+package imath
 
 func MaxInt(a int, b int) int {
 	if a > b {
