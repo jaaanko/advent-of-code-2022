@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"sort"
@@ -45,9 +46,15 @@ func main() {
 	}
 	defer file.Close()
 
+	elves := parseInput(file)
+	fmt.Println("Part 1:", solvePart1(elves))
+	fmt.Println("Part 2:", solvePart2(elves))
+}
+
+func parseInput(r io.Reader) [][]int {
 	elves := [][]int{}
 	calories := []int{}
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(r)
 
 	for scanner.Scan() {
 		num, err := strconv.Atoi(scanner.Text())
@@ -60,6 +67,5 @@ func main() {
 	}
 
 	elves = append(elves, calories)
-	fmt.Println("Part 1:", solvePart1(elves))
-	fmt.Println("Part 2:", solvePart2(elves))
+	return elves
 }
