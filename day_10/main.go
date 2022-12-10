@@ -57,7 +57,7 @@ func solvePart1(operations []operation) int {
 	cycle := 1
 	x := 1
 	for _, op := range operations {
-		if cycle == 20 || cycle > 20 && (cycle-20)%40 == 0 {
+		if (cycle-20)%40 == 0 {
 			total += cycle * x
 		}
 		if op.name == "addx" {
