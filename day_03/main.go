@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"unicode"
@@ -65,19 +66,25 @@ func solvePart2(sacks []string) int {
 	return total
 }
 
-func main() {
-	file, err := os.Open("input_01.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-	scanner := bufio.NewScanner(file)
+func parseInput(r io.Reader) []string {
+	scanner := bufio.NewScanner(r)
 	sacks := []string{}
 
 	for scanner.Scan() {
 		sacks = append(sacks, scanner.Text())
 	}
 
+	return sacks
+}
+
+func main() {
+	file, err := os.Open("input_01.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	sacks := parseInput(file)
 	fmt.Println("Part 1:", solvePart1(sacks))
 	fmt.Println("Part 2:", solvePart2(sacks))
 }
