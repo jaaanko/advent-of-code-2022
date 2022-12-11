@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"io"
 	"log"
@@ -47,20 +48,13 @@ func add(y int) func(int) int {
 }
 
 func main() {
-	file1, err := os.Open("input_01.txt")
+	inputBytes,err := os.ReadFile("input_01.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer file1.Close()
-
-	file2, err := os.Open("input_01.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file2.Close()
-
-	fmt.Println("Part 1:",solvePart1(parseInput(file1)))
-	fmt.Println("Part 2:",solvePart2(parseInput(file2)))
+	
+	fmt.Println("Part 1:",solvePart1(parseInput(bytes.NewReader(inputBytes))))
+	fmt.Println("Part 2:",solvePart2(parseInput(bytes.NewReader(inputBytes))))
 }
 
 func parseInput(r io.Reader) []monkey {
@@ -79,7 +73,10 @@ func parseInput(r io.Reader) []monkey {
 			fields := strings.Fields(line)
 			items := strings.Split(strings.Join(fields[2:], ""), ",")
 			for _, worryLvl := range items {
-				worryLvl, _ := strconv.Atoi(worryLvl)
+				worryLvl, err := strconv.Atoi(worryLvl)
+				if err != nil {
+					log.Fatal(err)
+				}
 				currMonkey.addItem(worryLvl)
 			}
 		} else if strings.HasPrefix(line, "Operation") {
@@ -135,7 +132,6 @@ func solvePart1(monkeys []monkey) int {
 			for len(monkeys[j].items) > 0 {
 				itemsInspected[j] += 1
 				worryLvl,err := monkeys[j].popItem()
-
 				if err != nil{
 					log.Fatal(err)
 				}
@@ -166,7 +162,6 @@ func solvePart2(monkeys []monkey) int {
 			for len(monkeys[j].items) > 0 {
 				itemsInspected[j] += 1
 				worryLvl,err := monkeys[j].popItem()
-
 				if err != nil{
 					log.Fatal(err)
 				}
